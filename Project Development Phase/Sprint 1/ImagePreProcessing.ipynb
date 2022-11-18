@@ -1,0 +1,83 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "5a1f2626",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np#used for numerical analysis\n",
+    "import tensorflow #open source used for both ML and DL for computation\n",
+    "from tensorflow.keras.models import Sequential #it is a plain stack of layers\n",
+    "from tensorflow.keras import layers #A layer consists of a tensor-in tensor-out computation function\n",
+    "#Dense layer is the regular deeply connected neural network layer\n",
+    "from tensorflow.keras.layers import Dense,Flatten\n",
+    "#Faltten-used fot flattening the input or change the dimension\n",
+    "from tensorflow.keras.layers import Conv2D,MaxPooling2D,Dropout #Convolutional layer\n",
+    "#MaxPooling2D-for downsampling the image\n",
+    "from keras.preprocessing.image import ImageDataGenerator"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "696e9207",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#setting parameter for Image Data agumentation to the training data\n",
+    "train_datagen = ImageDataGenerator(rescale=1./255,shear_range=0.2,zoom_range=0.2,horizontal_flip=True)\n",
+    "#Image Data agumentation to the testing data\n",
+    "test_datagen=ImageDataGenerator(rescale=1./255)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "aeda7c5b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Found 730 images belonging to 4 classes.\n",
+      "Found 748 images belonging to 5 classes.\n"
+     ]
+    }
+   ],
+   "source": [
+    "#performing data agumentation to train data\n",
+    "x_train = train_datagen.flow_from_directory(\n",
+    "    r'C:\\Users\\Harithan\\IBM_Proj\\Dataset\\TRAIN_SET',\n",
+    "    target_size=(64, 64),batch_size=5,color_mode='rgb',class_mode='sparse')\n",
+    "#performing data agumentation to test data\n",
+    "x_test = test_datagen.flow_from_directory(\n",
+    "    r'C:\\Users\\Harithan\\IBM_Proj\\Dataset\\TEST_SET',\n",
+    "    target_size=(64, 64),batch_size=5,color_mode='rgb',class_mode='sparse') "
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
